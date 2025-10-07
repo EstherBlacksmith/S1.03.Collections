@@ -8,28 +8,34 @@ import java.util.HashMap;
 public class Main {
     static HashMap<String,String> countriesCapitals = new HashMap<>();
     static BufferedWriter bufferedWriter;
+
     public static void main(String[] args) {
         initializingCountriesData();
+    }
+
+    private static File gettingPath(){
+        Path basePath = Paths.get("");
+        Path filePath = basePath.resolve("src/main/resources/countries.txt");
+        return new File(filePath.toString());
     }
 
     private static void initializingCountriesData() {
         String line = null;
 
-        Path basePath = Paths.get(""); // Directorio actual
-        Path filePath = basePath.resolve("src/main/resources/countries.txt");
-        File file = new File(filePath.toString());
-
         try {
-            bufferedWriter = new BufferedWriter( new FileWriter(filePath.toAbsolutePath().toFile().getName()));
+            bufferedWriter = new BufferedWriter( new FileWriter(gettingPath().getName()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(gettingPath()));
 
         while (true) {
             try {
-                if (!((line = br.readLine()) != null)) break;
+                if ((line = bufferedReader.readLine()) == null || line.isBlank()){
+                    break;
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -38,8 +44,7 @@ public class Main {
 
             String country = parts[0].trim();
             String capital = parts[1].trim();
-
-            if (!country.equals("") && !capital.equals(""))
+            if (!country.isEmpty() && !capital.isEmpty())
                 countriesCapitals.put(country, capital);
         }
         } catch (FileNotFoundException e) {
@@ -47,14 +52,4 @@ public class Main {
         }
     }
 
-    private static void readingFile(){
-        Path basePath = Paths.get(""); // Directorio actual
-        Path filePath = basePath.resolve("src/main/resources/countries.txt");
-        try {
-            bufferedWriter = new BufferedWriter( new FileWriter(filePath.toAbsolutePath().toFile().getName()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }
