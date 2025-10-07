@@ -3,19 +3,28 @@ package countries;
 import java.util.Scanner;
 
 public class Main {
-/* El programa demana el nom de l’usuari/ària, i després ha de mostrar un país de forma aleatòria, guardat en el HashMap.
- Es tracta que l’usuari/ària ha d’escriure el nom de la capital del país en qüestió. Si l’encerta se li suma un punt.
- Aquesta acció es repeteix 10 vegades. Un cop demanades les capitals de 10 països de forma aleatòria,
- llavors s’ha de guardar en un fitxer anomenat classificacio.txt, el nom de l’usuari/ària i la seva puntuació.*/
+
 static Scanner inputScanner = new Scanner(System.in);
 static int score = 0;
+static String userName;
 
     public static void main(String[] args) {
-        Country.initializingCountriesData();
+        Country.countriesCapitals = FileManagement.initializingCountriesData();
 
+        askUserForName();
+
+        askingTheCapitals();
+
+        System.out.println("Your Score is " + score);
+
+        FileManagement.storeScore(userName,score);
+    }
+
+    private static void askingTheCapitals() {
         for (int i = 0; i < 10 ; i++) {
-            String answer = askingTheQuestion();
-            if (validatingTheAnswer(answer)) {
+            String countryName = Country.getRandomCountryName();
+            String answer = askingTheQuestion(countryName);
+            if (validatingTheAnswer(answer, countryName)) {
                 score++;
                 System.out.println("Correct!");
             } else {
@@ -24,24 +33,26 @@ static int score = 0;
         }
     }
 
-    private static boolean validatingTheAnswer(String answer) {
-        if(Country.getCapitalName(answer).isBlank()){
-            return false;
-        }else{
-            return true;
+    private static boolean validatingTheAnswer(String answer, String countryName) {
+        String capitalName = Country.getCityName(countryName);
+        boolean correctAnswer = false;
+
+        if(capitalName == null || capitalName.isBlank()){
+            correctAnswer = false;
+        } else if( capitalName.equalsIgnoreCase(answer)) {
+                correctAnswer = true;
         }
+        return correctAnswer;
     }
 
-    private static String askingTheQuestion() {
-        return readString("Capital of : " + Country.getCountryName() + "?");
+    private static String askingTheQuestion(String countryName) {
+        return readString("Capital of : " + countryName + "?");
     }
 
     private static void askUserForName(){
-        String userName = readString("Introduce your name");
-
-
-        System.out.println("Capital of : " + Country.getCountryName() + "?");
+         userName = readString("Introduce your name");
     }
+
     private static String readString(String question) {
         String readedString = "";
         System.out.println(question);

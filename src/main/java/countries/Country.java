@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Country {
     static HashMap<String,String> countriesCapitals = new HashMap<>();
-    static BufferedWriter bufferedWriter;
+
 
     public Country() {
     }
@@ -18,40 +18,7 @@ public class Country {
         return new File(filePath.toString());
     }
 
-    protected static void initializingCountriesData() {
-        String line = null;
-
-        try {
-            bufferedWriter = new BufferedWriter( new FileWriter(gettingPath().getName()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(gettingPath()));
-
-            while (true) {
-                try {
-                    if ((line = bufferedReader.readLine()) == null || line.isBlank()){
-                        break;
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
-                String[] parts = line.split("\\s");
-
-                String country = parts[0].trim();
-                String capital = parts[1].trim();
-                if (!country.isEmpty() && !capital.isEmpty())
-                    countriesCapitals.put(country, capital);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    protected static String getCountryName() {
+    protected static String getRandomCountryName() {
         Random randomInt = new Random();
         int index = randomInt.nextInt(countriesCapitals.size());
 
@@ -62,7 +29,7 @@ public class Country {
         return  entryAtIndex.getKey();
     }
 
-    protected static String getCapitalName(String country){
-        return countriesCapitals.getOrDefault(country, "");
+    protected static String getCityName(String countryName){
+        return countriesCapitals.get(countryName);
     }
 }
