@@ -5,9 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
-
-import static java.awt.SystemColor.text;
 
 public class FileManagement {
     private static Path basePath = Paths.get("");

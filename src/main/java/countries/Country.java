@@ -1,22 +1,11 @@
 package countries;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class Country {
     static HashMap<String,String> countriesCapitals = new HashMap<>();
 
-
-    public Country() {
-    }
-
-    private static File gettingPath(){
-        Path basePath = Paths.get("");
-        Path filePath = basePath.resolve("src/main/resources/countries.txt");
-        return new File(filePath.toString());
-    }
 
     protected static String getRandomCountryName() {
         Random randomInt = new Random();
