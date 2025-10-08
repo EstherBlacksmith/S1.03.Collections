@@ -19,9 +19,10 @@ public class Restaurant {
         return score;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Restaurant " + name + " Score: " + score ;
+    }
 
 
 }
