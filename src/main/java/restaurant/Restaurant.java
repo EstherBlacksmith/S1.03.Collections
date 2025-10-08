@@ -1,7 +1,5 @@
 package restaurant;
 
-import java.util.Scanner;
-
 public class Restaurant {
 
     private String name;
@@ -12,10 +10,10 @@ public class Restaurant {
         this.score = score;
     }
 
-    public String getName() {
+    protected String getName() {
         return name;
     }
-    public int getScore() {
+    protected int getScore() {
         return score;
     }
 

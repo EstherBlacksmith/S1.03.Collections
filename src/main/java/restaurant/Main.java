@@ -3,12 +3,13 @@ package restaurant;
 import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class Main {
     static Scanner inputScanner = new Scanner(System.in);
 
-    private static HashSet <Restaurant> ranking;
+    private static Set<Restaurant> ranking;
 
     public static void main(String[] args) {
         ranking = new HashSet<>();
@@ -39,19 +40,18 @@ public class Main {
         ranking.add(restaurant);
 
     }
-
-    private static String readString(String question) {
+    protected  static String readString(String question) {
         String readedString = "";
         System.out.println(question);
 
-        while (readedString.equals("")) {
+        while (readedString == "") {
             if (inputScanner.hasNext()) {
                 try {
-                    readedString = inputScanner.next();
+                    readedString = inputScanner.nextLine();
 
                 } catch (RuntimeException e) {
                     System.out.println("Incorrect type.\n" + question);
-                    inputScanner.next();
+                    inputScanner.nextLine();
                 }
             }
         }
