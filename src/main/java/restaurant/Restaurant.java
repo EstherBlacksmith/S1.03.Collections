@@ -2,8 +2,8 @@ package restaurant;
 
 public class Restaurant {
 
-    private String name;
-    private int score;
+    private final String name;
+    private final int score;
 
     public Restaurant(String name, int score) {
         this.name = name;

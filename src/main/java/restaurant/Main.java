@@ -16,31 +16,33 @@ public class Main {
         menu();
     }
 
-    protected static boolean findRestaurantAndScore(String name, int score){
+    protected static boolean findRestaurantAndScore(String name, int score) {
         boolean finded = false;
 
         for (var rest : ranking) {
-            if(rest.getName().equalsIgnoreCase(name) && rest.getScore() == score){
+            if (rest.getName().equalsIgnoreCase(name) && rest.getScore() == score) {
                 finded = true;
+                break;
             }
         }
 
         return finded;
     }
 
-    protected static void addingRestaurant(){
+    protected static void addingRestaurant() {
         String name = readString("Name a restaurant");
         int score = readInt("Score the restaurant");
-        if(findRestaurantAndScore(name,score)){
+        if (findRestaurantAndScore(name, score)) {
             System.out.println("You cannot add the same restaurant with the same score to the ranking");
             return;
         }
 
-        Restaurant restaurant = new Restaurant(name,score);
+        Restaurant restaurant = new Restaurant(name, score);
         ranking.add(restaurant);
 
     }
-    protected  static String readString(String question) {
+
+    protected static String readString(String question) {
         String readedString = "";
         System.out.println(question);
 
@@ -59,28 +61,28 @@ public class Main {
     }
 
     static int readInt(String question) {
-        int readedInt = 0;
+        int readedInt;
         System.out.println(question);
 
-        while (readedInt == 0) {
-            if (inputScanner.hasNext()) {
-                try {
-                    readedInt = inputScanner.nextInt();
-
-                } catch (InputMismatchException e) {
-                    System.out.println("Incorrect type.\n" + question);
-                    inputScanner.next();
+        while (true) {
+            try {
+                readedInt = inputScanner.nextInt();
+                if (readedInt < 0) {
+                    throw new InputOnlyPositiveIntegerException("Must be a positive value.\n" + question);
                 }
+                return readedInt;
+            } catch (InputMismatchException | InputOnlyPositiveIntegerException e) {
+                System.out.println("Incorrect type.\n" + question);
+                inputScanner.nextLine();
             }
         }
-        return readedInt;
     }
 
-    private static void showRanking(){
+    private static void showRanking() {
 
-        if(ranking.isEmpty()){
+        if (ranking.isEmpty()) {
             System.out.println("There aren't restaurants yet");
-        }else{
+        } else {
             for (var rest : ranking) {
                 System.out.println(rest);
             }
@@ -89,15 +91,14 @@ public class Main {
     }
 
 
-
-    private static void menu(){
+    private static void menu() {
         int option = 0;
 
         while (option != 3) {
 
-            option =readInt("1 Add a restaurant\n2 Show the ranking\n3 Exit");
+            option = readInt("1 Add a restaurant\n2 Show the ranking\n3 Exit");
 
-            switch (option){
+            switch (option) {
                 case 1 -> {
                     addingRestaurant();
                 }
@@ -112,8 +113,6 @@ public class Main {
                 }
             }
         }
-
-
     }
 
 }
