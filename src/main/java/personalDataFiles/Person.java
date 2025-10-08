@@ -11,4 +11,19 @@ public class Person {
         this.DNI = DNI;
     }
 
+    protected String getName() {
+        return name;
+    }
+
+    protected String getSecondName() {
+        return secondName;
+    }
+
+    protected String getDNI() {
+        return DNI;
+    }
+    @Override
+    public String toString() {
+        return name + " " + secondName + "." +  DNI ;
+    }
 }
