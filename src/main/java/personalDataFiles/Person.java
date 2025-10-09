@@ -1,6 +1,6 @@
 package personalDataFiles;
 
-public class Person implements java.util.Comparator<Person>{
+public class Person {
     protected String name;
     protected String secondName;
     protected String DNI;
@@ -27,17 +27,4 @@ public class Person implements java.util.Comparator<Person>{
         return name + " " + secondName + "." +  DNI ;
     }
 
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
-    }
-
-
-    public int compareTo(Person person) {
-        return this.name.compareTo(person.name);
-    }
-
-    @Override
-    public int compare(Person o1, Person o2) {
-        return 0;
-    }
 }
