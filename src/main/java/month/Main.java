@@ -10,7 +10,7 @@ public class Main {
     }
 
     private static void init(){
-        monthsArray = new ArrayList();
+        monthsArray = new ArrayList<>();
         addingMonths();
 
         Month month = new Month("August");
@@ -36,8 +36,7 @@ public class Main {
     }
 
     private static void showingMonths() {
-        for (int i = 0; i < monthsArray.size(); i++) {
-            Month monthToSee = (Month) monthsArray.get(i);
+        for (Month monthToSee : monthsArray) {
             System.out.println(monthToSee.getName());
         }
     }
@@ -57,15 +56,13 @@ public class Main {
 
     static void  iteratingSet(){
         System.out.println("\nWith 'for loop'\n");
-        for (int i = 0; i < monthsArray.size(); i++) {
-            System.out.println( monthsArray.get(i).getName());
+        for (Month month : monthsArray) {
+            System.out.println(month.getName());
         }
 
         System.out.println("\nWith iterator:\n");
 
-        Iterator <Month> iter  = monthsArray.iterator();
-        while(iter.hasNext()){
-            Month mes = iter.next();
+        for (Month mes : monthsArray) {
             System.out.println(mes.getName());
         }
 

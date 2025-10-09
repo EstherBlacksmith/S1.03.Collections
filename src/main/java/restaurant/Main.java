@@ -42,7 +42,7 @@ public class Main {
 
     }
 
-    protected static String readString(String question) {
+    private static String readString(String question) {
         String readedString = "";
         System.out.println(question);
 
@@ -60,7 +60,7 @@ public class Main {
         return readedString;
     }
 
-    static int readInt(String question) {
+    private static int readInt(String question) {
         int readedInt;
         System.out.println(question);
 
