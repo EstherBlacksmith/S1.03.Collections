@@ -6,14 +6,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Main {
     static Scanner inputScanner = new Scanner(System.in);
+    static List<Person> peopleArray = new ArrayList<>();
+    static final String HEADER = "NAME    SECOND NAME     NIF";
 
     public static void main(String[] args) {
         menu();
@@ -52,7 +51,11 @@ public class Main {
                 String line = myReader.nextLine();
                 if(!line.isBlank()) {
                     String[] arrayLine = line.split(DELIMITER);
-                    createPerson(arrayLine);
+
+                    Person person = createPerson(arrayLine);
+                    if(person != null){
+                        peopleArray.add(person);
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
@@ -61,7 +64,8 @@ public class Main {
         }
     }
 
-    private static void createPerson(String[] arrayLine) {
+    private static Person createPerson(String[] arrayLine) {
+        Person person = null;
 
         if(arrayLine.length > 0){
             String name =  arrayLine[0];
@@ -72,8 +76,10 @@ public class Main {
                 throw new RuntimeException("Some fields are empty");
             }
 
-            Person person = new Person(name,secondName,DNI);
+            person = new Person(name,secondName,DNI);
         }
+
+        return person;
     }
 
 
@@ -123,24 +129,27 @@ public class Main {
     }
 
     private static void showPersonBySeconNameZA() {
-        
+        Collections.sort(peopleArray, Comparator.comparing(Person::getSecondName).reversed());
+        System.out.println(HEADER);
+        peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonBySeconNameAZ() {
-        
+        Collections.sort(peopleArray, Comparator.comparing(Person::getSecondName));
+        System.out.println(HEADER);
+        peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonByNameZA() {
-        
+        Collections.sort(peopleArray, (m1, m2) -> m2.compareTo(m1));
+        System.out.println(HEADER);
+        peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonByNameAZ() {
-        Comparator<Person> personNameComparator =
-                Comparator.comparing(x -> x.getName());
-        List<Person> personArray = List.of();
-        personArray.sort(Comparator.comparing(Person::personNameComparator));
-
-
-
+        Collections.sort(peopleArray, (m1, m2) -> m1.compareTo(m2));
+        System.out.println(HEADER);
+        peopleArray.forEach(System.out::println );
     }
+
 }
