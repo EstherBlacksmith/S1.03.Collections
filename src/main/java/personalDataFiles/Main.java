@@ -12,7 +12,7 @@ import java.util.*;
 public class Main {
     static Scanner inputScanner = new Scanner(System.in);
     static List<Person> peopleArray = new ArrayList<>();
-    static final String HEADER = "NAME    SECOND NAME     NIF";
+    static final String HEADER = "NAME      SECOND NAME     NIF";
 
     public static void main(String[] args) {
         menu();

@@ -24,7 +24,7 @@ public class Person {
     }
     @Override
     public String toString() {
-        return name + " " + secondName + "." +  DNI ;
+        return name + "     " + secondName + "      " +  DNI ;
     }
 
 }
