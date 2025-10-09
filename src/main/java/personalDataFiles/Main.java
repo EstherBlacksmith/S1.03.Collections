@@ -19,7 +19,7 @@ public class Main {
         readingFIle();
     }
 
-    static int readInt(String question) {
+    private static int readInt(String question) {
         int readedInt;
         System.out.println(question);
 
@@ -36,9 +36,17 @@ public class Main {
             }
         }
     }
-    public static void readingFIle() {
-        final String  DELIMITER = ",";
+    private static boolean testingIfArrayHasValues(){
+        if(peopleArray.isEmpty()){
+            System.out.println("There isn't people yet!");
+            return false;
+        }else {
+            return true;
+        }
+    }
 
+    private static void readingFIle() {
+        final String  DELIMITER = ",";
 
         Path basePath = Paths.get("");
         Path filePath = basePath.resolve("src/main/resources/person.csv");
@@ -86,8 +94,8 @@ public class Main {
     private static void menu() {
         while (true) {
             int option = 0;
-            option = readInt("1 Read the file\n2 Show people by name (A-Z) \n3 Show people by name (Z-A) "
-                    + "\4Show people by second name (A-Z)\n5 Show people second name (Z-A)\n6 Show people by DNI (1-9)"
+            option = readInt("1 Read the file\n2 Show people by name (A-Z) \n3 Show people by name (Z-A)"
+                    + "\n4 Show people by second name (A-Z)\n5 Show people second name (Z-A)\n6 Show people by DNI (1-9)"
                     + "\n7 Show people by DNI (9-1)\n0 Exit");
 
             switch (option) {
@@ -123,31 +131,55 @@ public class Main {
     }
 
     private static void showPersonByIdentifier91() {
+        if(!testingIfArrayHasValues()){
+            return;
+        }
+        peopleArray.sort(Comparator.comparing(Person::getDNI).reversed());
+        System.out.println(HEADER);
+        peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonByIdentifier19() {
+        if(!testingIfArrayHasValues()){
+            return;
+        }
+        peopleArray.sort(Comparator.comparing(Person::getDNI));
+        System.out.println(HEADER);
+        peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonBySeconNameZA() {
-        Collections.sort(peopleArray, Comparator.comparing(Person::getSecondName).reversed());
+        if(!testingIfArrayHasValues()){
+            return;
+        }
+        peopleArray.sort(Comparator.comparing(Person::getSecondName).reversed());
         System.out.println(HEADER);
         peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonBySeconNameAZ() {
-        Collections.sort(peopleArray, Comparator.comparing(Person::getSecondName));
+        if(!testingIfArrayHasValues()){
+            return;
+        }
+        peopleArray.sort(Comparator.comparing(Person::getSecondName));
         System.out.println(HEADER);
         peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonByNameZA() {
-        Collections.sort(peopleArray, (m1, m2) -> m2.compareTo(m1));
+        if(!testingIfArrayHasValues()){
+            return;
+        }
+        peopleArray.sort(Comparator.comparing(Person::getName).reversed());
         System.out.println(HEADER);
         peopleArray.forEach(System.out::println );
     }
 
     private static void showPersonByNameAZ() {
-        Collections.sort(peopleArray, (m1, m2) -> m1.compareTo(m2));
+        if(!testingIfArrayHasValues()){
+            return;
+        }
+        peopleArray.sort(Comparator.comparing(Person::getName));
         System.out.println(HEADER);
         peopleArray.forEach(System.out::println );
     }
