@@ -7,9 +7,6 @@ public class Month {
         this.name = name;
     }
 
-    public Month() {
-    }
-
     public String getName() {
         return name;
     }

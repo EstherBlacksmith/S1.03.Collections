@@ -47,7 +47,6 @@ public class FileManagement {
 
     protected static void storeScore(String name, int score) {
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             Path filePath = basePath.resolve("src/main/resources/score_" + name + ".txt");
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath.toFile(),true));
